@@ -123,7 +123,7 @@ class LoggingThread(Thread):
 
             # update log file:
             # at least every PLOGGING_UPDATE_FILE_PERIOD seconds or
-            # if rss usage grow relative more then PLOGGING_MIN_CHANGE
+            # if rss usage grow relative more than PLOGGING_MIN_CHANGE
             # if (max_resources['rss'] > last_log_value and time.time() - last_log_time > 30) or \
             if (
                 time.time() - last_log_time > gs.PLOGGING_UPDATE_FILE_PERIOD
@@ -136,7 +136,7 @@ class LoggingThread(Thread):
             with self._cond:
                 self._cond.wait(gs.PLOGGING_INTERVAL)
 
-            # if less then 2% or less then 256MB are free
+            # if less than 2% or less then 256MB are free
             # if max_mem * 0.98 < last_rss:
             #     if max_mem and (max_mem - last_rss) / max_mem < 0.02 or max_mem - last_rss < 2**28:
             #     self.task.check_state(gs.JOB_CLOSE_TO_MAX_MEM, task_id=self.task_id, update=True)

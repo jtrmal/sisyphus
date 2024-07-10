@@ -34,7 +34,7 @@ Useful examples::
     # Print short job summary
     tk.job_info(j)
 
-    # List functions to cleanup work directory:
+    # List functions to clean up work directory:
     tk.cleaner?
 """
 
@@ -81,7 +81,7 @@ def zipped(filename: Union[Path, str]) -> bool:
 
 class mktemp:
     """Object to be used by the with statement.
-    creates temporary file that will be delete at exit. Can be used like this::
+    creates temporary file that will be deleted at exit. Can be used like this::
 
         with mktemp() as temp:
             #do stuff with temp
@@ -307,7 +307,7 @@ def load_job(path: str) -> Job:
 
 
 def setup_job_directory(job: Job):
-    """Setup the work directory of the given job.
+    """Set up the work directory of the given job.
 
     :param Job|Path job: Job which needs work directory
     """
@@ -588,7 +588,7 @@ def print_graph(targets=None, required_inputs=None):
             creator = target.creator
             path = target
             if creator is None:
-                # This path is a input path of the graph
+                # This path is an input path of the graph
                 continue
         elif isinstance(target, Job):
             creator = target
@@ -730,7 +730,7 @@ def replace_graph_objects(current, mapping=None, replace_function=None):
 
     current: current graph
     mapping: [(old_object, new_object), ....]
-    replace_function: how an object will be replace, defaults using the mapping
+    replace_function: how an object will be replaced, defaults using the mapping
 
     returns: New graph
     """
@@ -855,7 +855,7 @@ def reload_module(module):
 
 
 def setup_script_mode():
-    """Use this function if you start sisyphus from an recipe file, it will:
+    """Use this function if you start sisyphus from a recipe file, it will:
 
     #. setup logging level and prompt
 

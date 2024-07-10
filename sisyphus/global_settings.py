@@ -22,7 +22,7 @@ def engine():
 
     The usually recommended version is to use a local and a normal grid engine. The EngineSelector
     can be used to schedule tasks on different engines. The main intuition was to have an engine for
-    very small jobs that don't required to be scheduled on a large grid engine (e.g. counting lines of file).
+    very small jobs that don't require to be scheduled on a large grid engine (e.g., counting lines of file).
     A setup using the EngineSelector would look like this::
 
         from sisyphus.localengine import LocalEngine

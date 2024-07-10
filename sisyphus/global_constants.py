@@ -41,7 +41,7 @@ STATE_FINISHED = "finished"  # job/task finished successful
 
 # Job states returnable by the engine
 STATE_QUEUE = "queue"  # Task is waiting in queue
-STATE_QUEUE_ERROR = "queue_error"  # Some thing went wrong in the queue
+STATE_QUEUE_ERROR = "queue_error"  # Something went wrong in the queue
 STATE_RUNNING = "running"  # Task is currently running
 STATE_UNKNOWN = "unknown"  # Task is not know known by the engine
 STATE_RETRY_ERROR = "retry_error"  # to many failed retries

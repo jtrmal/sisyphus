@@ -112,8 +112,8 @@ class LoadSharingFacilityEngine(EngineBase):
         out.append("-n %s" % rqmt.get("cpu", 1))
 
         # Try to convert time to float, calculate minutes from it
-        # and convert it back to an rounded string
-        # If it fails use string directly
+        # and convert it back to a rounded string
+        # If it fails, use string directly
         task_time = try_to_multiply(rqmt["time"], 60)  # convert to minutes if possible
 
         out.append("-W %s" % task_time)
@@ -150,7 +150,7 @@ class LoadSharingFacilityEngine(EngineBase):
                     submitlist += list(range(start_id, end_id + 1))
                     start_id, end_id = (task_id, None)
                 entrycounter += 1
-                # The submitstring must not get longer than 255 chars. Assume job_id's are 4 digit numbers at max
+                # The submitstring must not get longer than 255 chars. Assume job_id's are 4-digit numbers at max
                 if entrycounter == 20:
                     job_id = self.submit_helper(call, logpath, rqmt, name, task_name, submitstring[:-1])
                     submitted.append((submitlist, job_id))

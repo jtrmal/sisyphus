@@ -195,7 +195,7 @@ def search_for_unused(job_dirs, current=gs.WORK_DIR, verbose=True):
         if status is None:
             unused.add(path)
         elif status == DIR_IN_GRAPH:
-            # directory has sub directories used by current graph
+            # directory has subdirectories used by current graph
             found = search_for_unused(job_dirs, path, verbose)
             unused.update(found)
             if verbose:

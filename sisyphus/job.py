@@ -65,7 +65,7 @@ T = TypeVar("T", bound="Job")
 
 
 class JobSingleton(type):
-    """Meta class to ensure that every Job with the same hash value is
+    """Metaclass to ensure that every Job with the same hash value is
     only created once"""
 
     def __call__(cls: Type[T], *args, **kwargs) -> T:
@@ -243,7 +243,7 @@ class Job(metaclass=JobSingleton):
 
     # Functions directly used to run the job
     def _sis_setup_directory(self, force=False):
-        """Setup the working directory"""
+        """Set up the working directory"""
 
         if self._sis_setup_since_restart and self._sis_setup() and not force:
             return
@@ -278,7 +278,7 @@ class Job(metaclass=JobSingleton):
                     # To avoid that (but also risking further collisions...):
                     job_id = job_id.split("/")[-1]
                 # replace / with _ to make the directory structure flat
-                # I it would be possible to hit some cases where this could
+                # It would be possible to hit some cases where this could
                 # cause a collision sorry if you are really that unlucky...
                 link_name = os.path.join(self._sis_path(gs.JOB_INPUT), str(job_id).replace("/", "_"))
                 if not os.path.isdir(link_name):
@@ -475,7 +475,7 @@ class Job(metaclass=JobSingleton):
             if self._sis_setup() and self._sis_runnable():
                 # check all task if they are finished
                 for task in self._sis_tasks():
-                    # job is only finished if all sub tasks are finished
+                    # job is only finished if all subtasks are finished
                     if not task.finished():
                         return False
                 # Mark job as finished
@@ -653,7 +653,7 @@ class Job(metaclass=JobSingleton):
     def _sis_state(self, engine):
         """Return the state of this job"""
         if self._sis_setup():
-            # job is setup, check progress
+            # job is set up, check progress
             if self._sis_is_set_to_hold():
                 return gs.STATE_HOLD
             if self._sis_finished():
@@ -1086,8 +1086,8 @@ class Job(metaclass=JobSingleton):
 
     def output_path(self, filename, directory=False, cached=False):
         """
-        Adds output path, if directory is True a
-        directory will will be created automatically.
+        Adds output path, if directory is True, a
+        directory will be created automatically.
 
         :param str filename:
         :param bool directory:
@@ -1104,8 +1104,8 @@ class Job(metaclass=JobSingleton):
         return path
 
     def output_var(self, filename, pickle=False, backup=None):
-        """Adds output path which contains a python object,
-        if directory is True a directory will will be created automatically
+        """Adds an output path which contains a python object,
+        if directory is True, a directory will be created automatically
         """
         path = Variable(filename, self, pickle=pickle, backup=backup)
         assert path.get_path() not in self._sis_outputs
@@ -1167,7 +1167,7 @@ class Job(metaclass=JobSingleton):
         return self
 
     def sh(self, command, *args, **kwargs):
-        """Calls a external shell and
+        """Calls an external shell and
         replaces {args} with job inputs, outputs, args
         and executes the command"""
         return tools.sh(command, *args, sis_quiet=self._sis_quiet, sis_replace=self.__dict__, **kwargs)

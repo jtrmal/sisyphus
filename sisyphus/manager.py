@@ -73,7 +73,7 @@ def manager(args):
         )
         import sisyphus.filesystem as filesystem
 
-    # Ensure this thread has a event loop
+    # Ensure this thread has an event loop
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 

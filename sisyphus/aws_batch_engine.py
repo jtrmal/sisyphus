@@ -1,10 +1,10 @@
 """This is an experimental implementation for the aws batch engine.
 
-WARNING: After running some setups I can currently not recommend using aws batch with Sisyphus.
-AWS parallelcluster (https://aws.amazon.com/blogs/opensource/aws-parallelcluster/) looks like a easy way how
-to setup a SGE Cluster inside AWS which I would recommend.
+WARNING: After running some setups, I can currently not recommend using aws batch with Sisyphus.
+AWS parallelcluster (https://aws.amazon.com/blogs/opensource/aws-parallelcluster/) looks like an easy way
+how to set up an SGE Cluster inside AWS which I would recommend.
 
-You need to setup shared file system, I used efs, a docker image which contains all needed packages and mounts
+You need to set up a shared file system, I used efs, a docker image which contains all needed packages and mounts
 the shared file system and a queue. The docker image must be run in privileged mode.
 An example docker image can be found under docs/aws_batch_docker.
 

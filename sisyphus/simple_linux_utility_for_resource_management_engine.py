@@ -56,7 +56,7 @@ class SimpleLinuxUtilityForResourceManagementEngine(EngineBase):
         :param bool has_memory_resource: Set to False if the Slurm setup was not configured for managing memory
         :param bool auto_clean_eqw: if True jobs in eqw will be set back to qw automatically
         :param list[str] ignore_jobs: list of job ids that will be ignored during status updates.
-                                      Useful if a job is stuck inside of Slurm and can not be deleted.
+                                      Useful if a job is stuck inside Slurm and can not be deleted.
                                       Job should be listed as "job_number.task_id" e.g.: ['123.1', '123.2', '125.1']
         :param Callable job_name_mapping: mapping for job names in sbatch
                                           Example mapping: 'path/to/file/JobName.H4sH.task' to 'JobName.H4sH.task'
@@ -161,7 +161,7 @@ class SimpleLinuxUtilityForResourceManagementEngine(EngineBase):
         out.append("--cpus-per-task=%s" % rqmt.get("cpu", 1))
 
         # Try to convert time to float, calculate minutes from it
-        # and convert it back to an rounded string
+        # and convert it back to a rounded string
         # If it fails use string directly
         task_time = try_to_multiply(rqmt["time"], 60)  # convert to minutes if possible
 

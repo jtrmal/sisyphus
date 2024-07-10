@@ -193,8 +193,8 @@ class EngineBase:
 
     def init_worker(self, task):
         """
-        This method will be call before the task is started by the worker.
-        e.g. SGE uses this method to link the SGE log file to the desired position.
+        This method will be called before the task is started by the worker.
+        E.g., SGE uses this method to link the SGE log file to the desired position.
 
         :param task:
         :return:

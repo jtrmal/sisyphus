@@ -59,7 +59,7 @@ class SonOfGridEngine(EngineBase):
         :param str gateway: ssh to that node and run all sge commands there
         :param bool auto_clean_eqw: if True jobs in eqw will be set back to qw automatically
         :param list[str] ignore_jobs: list of job ids that will be ignored during status updates.
-                                      Useful if a job is stuck inside of SGE and can not be deleted.
+                                      Useful if a job is stuck inside of the SGE and can not be deleted.
                                       Job should be listed as "job_number.task_id" e.g.: ['123.1', '123.2', '125.1']
         :param str pe_name: used to select parallel environment (PE), when multi_node_slots is set in rqmt,
                             as `-pe <pe_name> <multi_node_slots>`.
@@ -176,7 +176,7 @@ class SonOfGridEngine(EngineBase):
         out.append("num_proc=%s" % rqmt.get("cpu", 1))
 
         # Try to convert time to float, calculate minutes from it
-        # and convert it back to an rounded string
+        # and convert it back to a rounded string
         # If it fails use string directly
         task_time = try_to_multiply(rqmt["time"], 60 * 60)  # convert to seconds if possible
 
@@ -265,7 +265,7 @@ class SonOfGridEngine(EngineBase):
             sout = out[0].split()
             if len(sout) == 7 and sout[3].startswith(b'("') and sout[3].endswith(b'")'):
                 if sout[3][2:-2] != name.encode() and name.encode().startswith(sout[3][2:-2]):
-                    # SGE can cutoff the job-name. Fix that.
+                    # SGE can cut off the job-name. Fix that.
                     ref_output[2] = sout[3]
             if retval != 0 or len(err) > 0 or len(sout) != 7 or sout[0:2] + sout[3:] != ref_output:
                 print(retval, len(err), len(sout), sout[0:2], sout[3:], ref_output)

@@ -140,7 +140,7 @@ class execute_in_dir(object):
     cwd = os.getcwd()
     with execute_in_dir('foo'):
         assert(os.path.join(cwd, 'foo') == os.getcwd())
-    assert(cwd) == os.getcwd())
+    assert(cwd == os.getcwd())
     """
 
     def __init__(self, workdir):
@@ -207,7 +207,7 @@ def sh(
     include_stderr=False,
     **kwargs,
 ):
-    """Calls a external shell and
+    """Calls an external shell and
     replaces {args} with job inputs, outputs, args
     and executes the command"""
 
@@ -229,7 +229,7 @@ def sh(
     if executable is None:
         executable = "/bin/bash"
         if pipefail:
-            # this ensures that the job will fail if any part inside of a pipe fails
+            # this ensures that the job will fail if any part inside a pipe fails
             command = "set -ueo pipefail && " + command
 
     try:
@@ -476,7 +476,7 @@ class MemoryProfiler:
 
 class EnvironmentModifier:
     """
-    A class to cleanup the environment before a job starts
+    A class to clean up the environment before a job starts
     """
 
     def __init__(self, *, cleanup_env: bool = True):
