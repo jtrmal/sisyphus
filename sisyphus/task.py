@@ -38,7 +38,7 @@ class Task:
                 "mem": amount of memory, in GB
                 "time": amount of time, in hours
                 "multi_node_slots": amount of slots, distributed potentially over multiple nodes.
-                                    E.g. maps to `--ntasks <multi_node_slots>` parameter for Slurm,
+                                    E.g., maps to `--ntasks <multi_node_slots>` parameter for Slurm,
                                     and to `-pe <pe_name> <multi_node_slots>` for SGE (SGE parallel environment (PE)).
         :param args: job arguments
         :param mini_task: will be run on engine for short jobs if True
@@ -46,8 +46,8 @@ class Task:
         :param parallel: if set to > 0, groups jobs for individual arguments together into the number of batches
                          specified here. Will then submit at max `parallel` jobs into the engine at a time.
         :param tries: how often this task is resubmitted after failure
-        :param continuable: If set to True this task will not set a finished marker, useful for tasks that can be
-                            continued for arbitrarily long, e.g. adding more epochs to neural network training
+        :param continuable: If set to True, this task will not set a finished marker, useful for tasks that can be
+                            continued for arbitrarily long, e.g., adding more epochs to neural network training
         """
         if rqmt is None:
             rqmt = {}
@@ -146,7 +146,7 @@ class Task:
                     time.sleep(1)
 
             # each input must be at least X seconds old
-            # if an input file is too young it's may not synced in a network filesystem yet
+            # if an input file is too young it's may not be synced in a network filesystem yet
             try:
                 input_age = time.time() - os.stat(i.get_path()).st_mtime
                 time.sleep(max(0, gs.WAIT_PERIOD_MTIME_OF_INPUTS - input_age))
@@ -230,9 +230,9 @@ class Task:
         """
         :param state: name of state
         :param int|list[int]|None task_id:
-        :param bool|None update: if not None change state to this value
-        :param combine: how states are combines, e.g. only finished if all jobs are finished => all,
-                        error state is true if only one or more is has the error flag => any
+        :param bool|None update: if not None, change state to this value
+        :param combine: how states are combined, e.g. only finished if all jobs are finished => all,
+                        error state is true if only one or more jobs has the error flag => any
         :param minimal_time_since_change: only true if state change is at least that old
         :return: if this state is currently set or not
         :rtype: bool
@@ -265,7 +265,7 @@ class Task:
         """
         :param int|list[int]|None task_id:
         :param bool|None update:
-        :return: true if job or task is in error state.
+        :return: true if the job or task is in error state.
         :rtype: bool
         """
 
@@ -288,7 +288,7 @@ class Task:
             error_file = self._job._sis_path(gs.STATE_ERROR + "." + self.name(), task_id)
             error_file = os.path.realpath(error_file)
             if os.path.isfile(error_file):  # task is in error state
-                # move log file and remove error file if a usued try is left
+                # move log file and remove error file if an unused try is left
                 for i in range(1, self.tries):
                     log_file = self._job._sis_path(gs.JOB_LOG + "." + self.name(), task_id)
                     new_name = "%s.error.%02i" % (log_file, i)
@@ -343,7 +343,7 @@ class Task:
         elif self.error(task_id):
             return gs.STATE_ERROR
         else:
-            # Task is not finished and not in error state, time to check the engine
+            # The task is not finished and not in error state, time to check the engine
             if task_id is None:
                 # Check all task_id of this task, return the 'worst' state
                 engine_states = [self.state(engine, i) for i in self.task_ids()]
@@ -370,7 +370,7 @@ class Task:
                     engine_state = engine.task_state(self, task_id)
                     assert engine_state in (gs.STATE_QUEUE, gs.STATE_QUEUE_ERROR, gs.STATE_RUNNING, gs.STATE_UNKNOWN)
 
-                    # force cache update to avoid caching problems if last state was not also UNKNOWN
+                    # force cache update to avoid caching problems if the last state was not also UNKNOWN
                     if (
                         engine_state == gs.STATE_UNKNOWN
                         and self.last_state
@@ -393,16 +393,16 @@ class Task:
                             return gs.STATE_FINISHED
                         elif self.error(task_id):
                             return gs.STATE_ERROR
-                        # job logging file got updated recently, assume job is still running.
+                        # job logging file got updated recently, assume the job is still running.
                         # used to avoid wrongly marking jobs as interrupted do to slow filesystem updates
                         elif self.running(task_id):
                             return gs.STATE_RUNNING
                         history = [] if engine is None else engine.get_submit_history(self)
                         if history and len(history[task_id]) > gs.MAX_SUBMIT_RETRIES:
-                            # More then three tries to run this task, something is wrong
+                            # More than three tries to run this task, something is wrong
                             return gs.STATE_RETRY_ERROR
                         else:
-                            # Task was started, but isn't running anymore => interrupted
+                            # The task was started, but isn't running anymore => interrupted
                             if self._resume is None:
                                 return gs.STATE_INTERRUPTED_NOT_RESUMABLE
                             else:
@@ -411,7 +411,7 @@ class Task:
                         return gs.STATE_RUNNABLE
                 else:
                     if engine_state == gs.STATE_RUNNING and self.running(task_id) is False:
-                        # Warn if job is running but doesn't update logging file anymore
+                        # Warn if the job is running but doesn't update logging file anymore
                         logging.warning(
                             "Job marked as running but logging file has not been updated: "
                             "%s assume it is running" % str(self._job)
@@ -449,7 +449,7 @@ class Task:
             return range(start, start + chunk_size)
 
     def update_rqmt(self, last_rqmt, task_id):
-        """Update task requirements of interrupted job"""
+        """Update task requirements of the interrupted job"""
         last_rqmt = last_rqmt.copy()
         # Make sure mem and time are numbers and not str
         last_rqmt["mem"] = tools.str_to_GB(last_rqmt["mem"])
